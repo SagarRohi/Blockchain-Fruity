@@ -1,30 +1,29 @@
-import { Route, Routes } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
-import {CreateContainer, Header, MainContainer} from './components';
-import { getAllFoodItems } from './utils/firebaseFunctions';
-import { useDispatch } from 'react-redux';
-import { setFoodItems} from './reducer';
-import { useEffect } from 'react';
-const App=()=>{
-   const dispatch=useDispatch();
-   const fetchData=async ()=>{
-       const data=await  getAllFoodItems();
-       dispatch(setFoodItems(data));
-   }
-   useEffect(()=>{
-       fetchData();
-   },[])
-  return <AnimatePresence exitBeforeEnter >
-    <div className='w-screen scrollbar-hide h-auto flex flex-col'>
-    <Header/>
-    <div className='mt-14 md:mt-20  py-4 w-screen scrollbar-hide  px-4 md:px-16'>
+import { AnimatePresence } from "framer-motion";
+import { Header } from "./components";
+import {
+  Home,
+  OrderHome,
+  Logger,
+  SignUp,
+  SignIn,
+  ProtectedRoute,
+} from "./components";
+import { Routes, Route } from "react-router-dom";
+const App = () => {
+  return (
+    <AnimatePresence exitBeforeEnter>
+      <div className="w-screen scrollbar-hide h-auto flex flex-col relative">
+        <Header />
         <Routes>
-          <Route path='/' element={<MainContainer/>}/>
-          <Route path='/create' element={<CreateContainer/>}/>
+          <Route path="/" element={<ProtectedRoute Children={<Home />} />} />
+          <Route path="/order" element={<OrderHome />} />
+          <Route path="/log" element={<Logger />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/signIn" element={<SignIn />} />
         </Routes>
-    </div>
-  </div>
-  </AnimatePresence>
-}
+      </div>
+    </AnimatePresence>
+  );
+};
 
 export default App;

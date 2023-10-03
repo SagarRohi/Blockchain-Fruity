@@ -1,45 +1,47 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {fetechUser} from './utils/locationStorageFunctions';
-const userInfo=fetechUser();
-const initialState={
-    user:userInfo,
-    foodItems:null,
-    cartShow:false,
-    signInShow:false,
-    signUpShow:false,
-    cartItems:[],
-}
+import { createSlice } from "@reduxjs/toolkit";
+const initialState = {
+  user: null,
+  products: [],
+  orders: [],
+  activeProduct: null,
+  activeOrder: null,
+  walletUser: null,
+};
 
-const slice=createSlice({
-    name:'Auth',
-    initialState,
-    reducers:{
-        setUser:(state,action)=>{
-            state.user=action.payload;
-        },
-        setFoodItems:(state,action)=>{
-            state.foodItems=action.payload;
-        },
-        addFoodItem:(state,action)=>{
-            state.foodItems=[...state.foodItems,action.payload];
-        },
-        setCartShow:(state,action)=>{
-            state.cartShow=action.payload;
-        },
-        setCartItems:(state,action)=>{
-            state.cartItems=action.payload;
-        },
-        setsignInShow:(state,action)=>{
-            state.signInShow=action.payload;
-        },
-        setsignUpShow:(state,action)=>{
-            state.signUpShow=action.payload;
-        },
-        toggle:(state,action)=>{
-            state.signInShow=!state.signInShow;
-            state.signUpShow=!state.signUpShow;
-        }
-    }
+const slice = createSlice({
+  name: "Auth",
+  initialState,
+  reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
+    setProducts: (state, action) => {
+      state.products = action.payload;
+    },
+    setOrders: (state, action) => {
+      state.orders = action.payload;
+    },
+    setActiveProduct: (state, action) => {
+      state.activeProduct = action.payload;
+    },
+    addOrder: (state, action) => {
+      state.orders = [...state.orders, action.payload];
+    },
+    setActiveOrder: (state, action) => {
+      state.activeOrder = action.payload;
+    },
+    setWalletUser: (state, action) => {
+      state.walletUser = action.payload;
+    },
+  },
 });
-export const {setUser,setFoodItems,addFoodItem,setCartShow,setCartItems,setsignInShow,setsignUpShow,toggle} = slice.actions;
+export const {
+  setUser,
+  setProducts,
+  setOrders,
+  setActiveProduct,
+  addOrder,
+  setActiveOrder,
+  setWalletUser,
+} = slice.actions;
 export default slice.reducer;
